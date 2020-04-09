@@ -1,0 +1,23 @@
+<html>
+
+<body>
+
+    <h1>Smart Doorbell Users</h1>
+
+    {% for user in users %}
+
+    <div>
+
+        <p>{{user.name}}</p>
+
+        <p>{{user.email}}</p>
+
+        <a href="{{url_for('user_info', user_name = user.name) }}">User DashBoard</a>
+        <br>
+
+    </div>
+
+    {% endfor %}
+</body>
+
+</html>
