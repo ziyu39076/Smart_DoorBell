@@ -3,7 +3,7 @@
 <body>
 
     <h1>User visit history</h1>
-    <h2>{{user_name}}</h2>
+    <h2>User name: {{user_name}}</h2>
 
     {% for record in visit_records %}
 
@@ -16,6 +16,9 @@
     </div>
 
     {% endfor %}
+
+    <a href="{{url_for('user_dashboard',user_name=user_name)}}">Back to User Dashboard</a>
+
 </body>
 
 </html>

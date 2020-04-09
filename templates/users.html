@@ -8,12 +8,7 @@
 
     <div>
 
-        <p>{{user.name}}</p>
-
-        <p>{{user.email}}</p>
-
-        <a href="{{url_for('user_info', user_name = user.name) }}">User DashBoard</a>
-        <br>
+        <p><a href="{{url_for('user_dashboard', user_name = user.name) }}">{{user.name}}</a></p>
 
     </div>
 
