@@ -1,0 +1,34 @@
+<html>
+
+<body>
+
+    <h1>All permitted Visitors</h1>
+    <h2>User name: {{user_name}}</h2>
+
+    {% for v in visitors %}
+
+    <p>visitor name: {{v.name}}</p>
+
+    <!-- add photo here is a problem -->
+
+    <a href="{{url_for('user_edit_visitor', user_name = user_name,visitor_id=v.visitor_id) }}">Edit</a>
+    <br>
+    <a href="{{url_for('user_delete_visitor', user_name = user_name,visitor_id=v.visitor_id) }}">Delete</a>
+    <br> {% endfor %}
+
+    <h2>
+        <a href="{{url_for('add_new_visitor', user_name = user_name) }}">Add New Visitor</a>
+    </h2>
+
+    <h2>
+        <a href="{{url_for('user_dashboard',user_name=user_name) }}">Back to User DashBoard</a>
+    </h2>
+
+    <h2>
+        <a href="{{url_for('users') }}">Back to Main Page</a>
+    </h2>
+
+
+</body>
+
+</html>
