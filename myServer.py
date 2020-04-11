@@ -1,40 +1,7 @@
-from sqlalchemy import Column, ForeignKey, Integer, String,LargeBinary
 # import this declarative base to inherate
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship,sessionmaker
 from sqlalchemy import create_engine
-
-Base = declarative_base()
- 
-class User(Base):
-    # this var refers to a table in database
-    __tablename__ = 'user'
-
-    # name is primary key, which means each user must has a unique name
-    name = Column(String(250), nullable=False,primary_key=True)
-    email=Column(String(250),nullable=False)
- 
-class Visitor(Base):
-    __tablename__ = 'visitor'
-
-    visitor_id = Column(Integer, primary_key = True)
-    name = Column(String(250), nullable = False)
-    photo=Column(LargeBinary,nullable=False)
-    user_name=Column(Integer,ForeignKey('user.name'))
-    user = relationship(User)
-
-class VisitRecord(Base):
-    __tablename__="visit_record"
-
-    # use id as primary key
-    record_id=Column(Integer,primary_key=True)
-    date=Column(String(250),nullable=False)
-    user_name=Column(String(250),ForeignKey('user.name'))
-    user=relationship(User)
-    visitor_id=Column(Integer,ForeignKey('visitor.visitor_id'),nullable=True)
-    # if not permitted visitor, lable as stranger
-    visitor_name=Column(String(250),nullable=False)
-    visitor=relationship(Visitor)
+from sqlalchemy.orm import sessionmaker
+from DB_setup_alchemy import Base,User,Visitor,VisitRecord
 
 # link to the DB we are using
 # pay attention to this part, if without check_same_thread=false, there will be lots of errors
@@ -98,6 +65,8 @@ def fail_add_user():
 		new_email=request.form['email']
 		try:
 			user=session.query(User).filter_by(name=new_name).one()
+			# this print just make sure last line of code is not neglected by complier
+			print(user.email)
 			# if no exception raised, means the user is already in the system
 			return redirect(url_for('fail_add_user'))
 		except:
@@ -215,5 +184,5 @@ def user_delete_visitor(user_name, visitor_id):
 		return render_template('delete_visitor.html',user_name=user_name,visitor_id=visitor_id,target_visitor=target_visitor)
 
 if __name__ == "__main__": 
-    app.run()
-	
+    #app.run()
+	app.run(host="127.0.0.1",port=5000)
