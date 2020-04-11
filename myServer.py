@@ -184,5 +184,5 @@ def user_delete_visitor(user_name, visitor_id):
 		return render_template('delete_visitor.html',user_name=user_name,visitor_id=visitor_id,target_visitor=target_visitor)
 
 if __name__ == "__main__": 
-    #app.run()
-	app.run(host="127.0.0.1",port=5000)
+    app.run()
+	#app.run(host="127.0.0.1",port=5000)
