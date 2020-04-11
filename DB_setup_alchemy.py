@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String,LargeBinary
+from sqlalchemy import Column, ForeignKey, Integer, String, LargeBinary
 # import this declarative base to inherate
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -36,7 +36,11 @@ class VisitRecord(Base):
     visitor_name=Column(String(250),nullable=False)
     visitor=relationship(Visitor)
 
-# link to the DB we are using
-engine = create_engine('sqlite:///data.db')
+def main():
+    # link to the DB we are using
+    engine = create_engine('sqlite:///data.db')
 
-Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine)
+
+if __name__=="__main__":
+    main()

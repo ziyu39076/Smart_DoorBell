@@ -1,18 +1,20 @@
 # import this declarative base to inherate
-from sqlalchemy import create_engine
+""" from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from DB_setup_alchemy import Base,User,Visitor,VisitRecord
+from os import getcwd
 
 # link to the DB we are using
 # pay attention to this part, if without check_same_thread=false, there will be lots of errors
 # but what is going on behind this part of code
 # what does engine and session really means
-engine = create_engine('sqlite:///data.db',connect_args={'check_same_thread': False})
-Base.metadata.create_all(engine)
+db_path='sqlite:///'+getcwd()+'/data.db'
+print(db_path)
+engine = create_engine(db_path,connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
-session = DBSession()
+session = DBSession() """
 
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from AWS_API import is_match
@@ -35,10 +37,11 @@ mail = Mail(app)
 @app.route('/users/')
 def users():
 	# list all users as links
-	users=session.query(User).all()
-	return render_template('users.html',users=users)
+	# users=session.query(User).all()
+	# return render_template('users.html',users=users)
+	return "test hello"
 
-@app.route('/users/add',methods=['GET','POST'])
+""" @app.route('/users/add',methods=['GET','POST'])
 def add_user():
 	if request.method=='GET':
 		return render_template('add_user.html')
@@ -182,7 +185,7 @@ def user_delete_visitor(user_name, visitor_id):
 		return redirect(url_for('user_dashboard',user_name=user_name))
 	else:
 		return render_template('delete_visitor.html',user_name=user_name,visitor_id=visitor_id,target_visitor=target_visitor)
-
+ """
 if __name__ == "__main__": 
     app.run()
 	#app.run(host="127.0.0.1",port=5000)
