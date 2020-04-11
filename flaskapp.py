@@ -37,9 +37,8 @@ mail = Mail(app)
 @app.route('/users/')
 def users():
 	# list all users as links
-	# users=session.query(User).all()
-	# return render_template('users.html',users=users)
-	return "test hello"
+	users=session.query(User).all()
+	return render_template('users.html',users=users)
 
 @app.route('/users/add',methods=['GET','POST'])
 def add_user():
