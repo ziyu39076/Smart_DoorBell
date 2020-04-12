@@ -8,13 +8,16 @@ from os import getcwd
 # pay attention to this part, if without check_same_thread=false, there will be lots of errors
 # but what is going on behind this part of code
 # what does engine and session really means
-db_path='sqlite:///'+getcwd()+'/data.db'
-print(db_path)
-engine = create_engine(db_path,connect_args={'check_same_thread': False})
-Base.metadata.bind = engine
+try:
+	db_path='sqlite:///'+getcwd()+'/data.db'
+	print(db_path)
+	engine = create_engine(db_path,connect_args={'check_same_thread': False})
+	Base.metadata.bind = engine
 
-DBSession = sessionmaker(bind=engine)
-session = DBSession()
+	DBSession = sessionmaker(bind=engine)
+	session = DBSession()
+except:
+	print("fail to open database")
 
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from AWS_API import is_match
@@ -37,8 +40,11 @@ mail = Mail(app)
 @app.route('/users/')
 def users():
 	# list all users as links
-	users=session.query(User).all()
-	return render_template('users.html',users=users)
+	try:
+		users=session.query(User).all()
+		return render_template('users.html',users=users)
+	except:
+		return "fail to get all users"
 
 @app.route('/users/add',methods=['GET','POST'])
 def add_user():
@@ -186,5 +192,5 @@ def user_delete_visitor(user_name, visitor_id):
 		return render_template('delete_visitor.html',user_name=user_name,visitor_id=visitor_id,target_visitor=target_visitor)
 
 if __name__ == "__main__": 
-	app.debug=True
+	# app.debug=True
 	app.run()
