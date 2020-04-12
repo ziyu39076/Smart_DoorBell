@@ -9,9 +9,7 @@ from os import getcwd
 # but what is going on behind this part of code
 # what does engine and session really means
 try:
-	db_path='sqlite:///'+getcwd()+'/data.db'
-	print(db_path)
-	engine = create_engine(db_path,connect_args={'check_same_thread': False})
+	engine = create_engine('sqlite:////home/ubuntu/flaskproject/data.db',connect_args={'check_same_thread': False})
 	Base.metadata.bind = engine
 
 	DBSession = sessionmaker(bind=engine)
@@ -130,9 +128,12 @@ def identify(user_name):
 		session.add(new_visit_record)
 		session.commit()
 		# send alert message to user
-		alert_message=Message("Alert from Smart Door Bell",sender=system_email,recipients=[user.email])
-		alert_message.body="A stranger visited your home at %s" % time
-		mail.send(alert_message)
+		try:
+			alert_message=Message("Alert from Smart Door Bell",sender=system_email,recipients=[user.email])
+			alert_message.body="A stranger visited your home at %s" % time
+			mail.send(alert_message)
+		except:
+			pass
 		return redirect(url_for('denied',user_name=user_name))
 		# add a stranger visit and redirect to user_dashboard
 
@@ -192,5 +193,4 @@ def user_delete_visitor(user_name, visitor_id):
 		return render_template('delete_visitor.html',user_name=user_name,visitor_id=visitor_id,target_visitor=target_visitor)
 
 if __name__ == "__main__": 
-	# app.debug=True
-	app.run(host="0.0.0.0",port=8080)
+	app.run()
