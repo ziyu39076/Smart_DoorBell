@@ -1,3 +1,4 @@
-flask_app_key.pem
 data.db
 __pycache__/*
+old_keys/*
+flask_ksy.pem
