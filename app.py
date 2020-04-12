@@ -24,12 +24,12 @@ from flask_mail import Mail, Message
 # create an instance of my app 
 app = Flask(__name__)
 
-system_email='zyz39298@gmail.com'
+system_email='xxxxxxxxxxxxxxxxxxx'
 # configuration of mail 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = system_email
-app.config['MAIL_PASSWORD'] = "gmailcode"
+app.config['MAIL_PASSWORD'] = "xxxxxxxxxxxxxxxxx"
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
