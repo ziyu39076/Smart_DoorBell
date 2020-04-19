@@ -2,3 +2,4 @@ data.db
 __pycache__/*
 old_keys/*
 flask.pem
+test_DB.py
