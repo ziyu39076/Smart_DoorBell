@@ -1,5 +1,5 @@
 def main():
-	print('finish work in iss123 branch')
+	print('change original py script')
 	print('what will happen if i change the original file in github repo')
 
 if __name__=="__main__":
