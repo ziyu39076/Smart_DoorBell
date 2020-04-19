@@ -2,7 +2,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from DB_setup_alchemy import Base,User,Visitor,VisitRecord
-from os import getcwd
 
 # link to the DB we are using
 # pay attention to this part, if without check_same_thread=false, there will be lots of errors
