@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <html>
 
 <!-- <head>
@@ -20,27 +19,3 @@
 </body>
 
 </html>
-||||||| merged common ancestors
-=======
-<html>
-
-<!-- <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-</head> -->
-
-<body>
-
-    <h1> Are you sure you want to delete {{target_visitor.name}}? </h1>
-
-    <form action="{{ url_for('user_delete_visitor',user_name = user_name, visitor_id=visitor_id)}}" method='post'>
-
-        <input type='submit' , value='Delete'>
-
-    </form>
-
-    <a href="{{url_for('user_dashboard', user_name=user_name)}}"> Cancel </a>
-
-</body>
-
-</html>
->>>>>>> d4c52d272fb822e51731709b05eb4b9aa8765cb8
