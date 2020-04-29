@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <!-- action="" means post form to the same route -->
+    <!-- be sure to add enctype=multipart/form-data in this tag -->
+    <form method='POST' action="" enctype="multipart/form-data">
+        <!-- used to protect form data -->
+        {{ form.hidden_tag() }}
+        <!-- form group is a bootstrap class -->
+        <fieldset class='form-group'>
+
+            <legend class="border-bottom mb-4">Account Info</legend>
+
+            <div class="form-group">
+                <!-- form-control-label is a bootstrap class -->
+                {{ form.username.label(class="form-control-label") }}
+
+                <!-- if there is some error, change the form field style and print errors -->
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>
+                        {{error}}
+                    </span>
+                    {% endfor %}
+
+                </div>
+                {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>
+                        {{error}}
+                    </span>
+                    {% endfor %}
+
+                </div>
+                {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+</div>
+{% endblock content%}

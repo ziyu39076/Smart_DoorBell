@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class='content-section'>
+        <!-- action="" means post form to the same route -->
+        <form method='POST' action="" enctype="multipart/form-data">
+            <!-- used to protect form data -->
+            {{ form.hidden_tag() }}
+            <!-- form group is a bootstrap class -->
+            <fieldset class='form-group'>
+
+                <legend class="border-bottom mb-4">Identify a new visitor</legend>
+
+                <div class="form-group">
+                    {{ form.photo.label() }}
+                    {{ form.photo(class="form-control-file") }}
+                    {% if form.photo.errors %}
+                        {% for error in form.photo.errors %}
+                            <span class='text-danger'>{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+
+        </form>
+    </div>
+
+{% endblock content %}

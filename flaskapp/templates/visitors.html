@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="media">
+    <div class="media-body">
+        <legend class="border-bottom mb-4">Permitted Visitors</legend>
+    </br>
+    </div>
+</div>
+
+{% for visitor in visitors %}
+
+<div class="media">
+    <img class="account-img" src="{{ url_for('static',filename='visitor_photos/'+visitor.photo) }}">
+    <div class="media-body">
+        <a class="article-title" href="{{url_for('update_visitor',visitor_id=visitor.id)}}">{{ visitor.name }}</a>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock content%}

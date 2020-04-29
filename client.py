@@ -1,32 +1,48 @@
 import os
 import requests
+from bs4 import BeautifulSoup
 
-def is_permitted(url_root_path,user_name,img_path):
-    # img_path is the absoulte path of input image
-    img=open(img_path,'rb')
-    files={
-        'img':(
-            os.path.basename(img_path),
-            img,
-            'multipart/form-data'
-        )
-    }
-    post_url="%susers/%s/identify/" % (url_root_path,user_name)
-    response=requests.post(post_url,files=files)
-    return "Permitted" in response.text
+url_root_path="http://ec2-3-86-230-21.compute-1.amazonaws.com/"
+login_url=url_root_path+'login'
+identify_url=url_root_path+'identify'
+
+def login(login_info):
+    with requests.Session() as sess:
+        login_res = sess.get(login_url)
+        signin = BeautifulSoup(login_res._content, 'html.parser')
+        login_info['csrf_token'] = signin.find('input', id='csrf_token')['value']
+        # login
+        sess.post(login_url, data=login_info)
+
+        return sess
+
+def identify(sess,image_path):
+    # key point: the key need to be the same as id in form
+    files = {'photo': open(image_path, 'rb')}
+    identify_res = sess.post(identify_url,files=files)
+
+    return "granted" in identify_res.text # boolean return type
 
 def activate_door(signal):
     if signal:
-        # activate the door
+        # activate the door, could be represented by lighting an LED on pi board
+        # green: permitted, red: denied
         pass
 
 def main():
-    url_root_path="http://localhost:5000/"
-    user_name="bob"
-    """ img_name="musk2.jpg"
-    img_path=os.getcwd()+os.sep+"imgs"+os.sep+img_name """
-    img_path="xxxxxxxxxxx"
-    print(is_permitted(url_root_path,user_name,img_path))
+    # this login info is valid
+    login_info={
+        'email':"test@test.com",
+        'password':"test"
+    }
+
+    # remember to change img file path
+    img_path="t2.jpg"
+
+    sess=login(login_info)
+    res=identify(sess,img_path)
+    print(res)
+    activate_door(res)
 
 if __name__=="__main__":
     main()

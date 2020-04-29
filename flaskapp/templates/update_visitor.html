@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <!-- action="" means post form to the same route -->
+    <!-- be sure to add enctype=multipart/form-data in this tag -->
+    <form method='POST' action="" enctype="multipart/form-data">
+        <!-- used to protect form data -->
+        {{ form.hidden_tag() }}
+        <!-- form group is a bootstrap class -->
+        <fieldset class='form-group'>
+
+            <legend class="border-bottom mb-4">Update Visitor Info</legend>
+                
+                <div class="form-group">
+                    <!-- form-control-label is a bootstrap class -->
+                    {{ form.name.label(class="form-control-label") }}
+
+                    <!-- if there is some error, change the form field style and print errors -->
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>
+                                    {{error}}
+                                </span>
+                            {% endfor %}
+
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg") }}
+                    {% endif %}
+                    
+                </div>
+
+                <div class="form-group">
+                    {{ form.photo.label() }}
+                    {{ form.photo(class="form-control-file") }}
+                    {% if form.photo.errors %}
+                        {% for error in form.photo.errors %}
+                            <span class='text-danger'>{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+        </fieldset>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+
+    </form>
+
+    {% if visit_records %}
+
+    <legend class="border-bottom mb-4">Visit records of {{ visitor.name }}</legend>
+
+    {% for record in visit_records %}
+
+    <div class="media">
+        <img class="account-img" src="{{ url_for('static',filename='identify_visitors/'+record.photo) }}">
+        <div class="media-body">
+            {% if record.visitor %}
+            <p class="article-title">{{ record.visitor.name }}</p>
+            {% else %}
+            <p class="article-title">Stranger</p>
+            {% endif %}
+            <p class="article-title">{{ record.date_visited.strftime('%Y-%m-%d') }}</p>
+        </div> 
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+</div>
+{% endblock content%}

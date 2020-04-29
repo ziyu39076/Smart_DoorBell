@@ -1,6 +1,7 @@
-data.db
-__pycache__/*
-old_keys/*
-flask.pem
-test_DB.py
-notes
+flaskapp.pem
+*.jpg
+test_db.py
+basic_bcrypt.py
+.vscode/*
+flaskapp/__pycache__
+flaskapp/data.db

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="media">
+    <div class="media-body">
+        <legend class="border-bottom mb-4">Visit Records</legend>
+    </div>
+</div>
+
+{% for record in visit_records %}
+
+<div class="media">
+    <img class="account-img" src="{{ url_for('static',filename='identify_visitors/'+record.photo) }}">
+    <div class="media-body">
+        {% if record.visitor %}
+        <p class="article-title">{{ record.visitor.name }}</p>
+        {% else %}
+        <p class="article-title">Stranger</p>
+        {% endif %}
+        <p class="article-title">{{ record.date_visited.strftime('%Y-%m-%d') }}</p>
+    </div> 
+</div>
+
+{% endfor %}
+{% endblock content%}
