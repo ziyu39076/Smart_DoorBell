@@ -2,6 +2,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+# This url links to the web app
 url_root_path="http://ec2-3-86-230-21.compute-1.amazonaws.com/"
 login_url=url_root_path+'login'
 identify_url=url_root_path+'identify'
