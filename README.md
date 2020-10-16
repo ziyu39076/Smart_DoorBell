@@ -13,8 +13,7 @@ git clone https://github.com/ziyu39076/Smart_DoorBell
 pip install -r requirements.txt
 ```
 3. setup AWS face-recognition API according to the official documentation
-https://docs.aws.amazon.com/rekognition/latest/dg/getting-started.html
-(P.S. if trying to run the app on local host, just need to run "python run.py" in terminal, then go to http://localhost:5000/)
+https://docs.aws.amazon.com/rekognition/latest/dg/getting-started.html, if only trying to run the app on local host, after setting up env and AWS API, just need to run `python run.py`in terminal, then go to http://localhost:5000/
 4. install nginx and supervisor with `sudo apt install`
 5. remove nginx default file
 ```
